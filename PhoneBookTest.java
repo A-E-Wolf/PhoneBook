@@ -9,14 +9,14 @@ import java.io.PrintStream; // import PrintStream class
 import java.util.Scanner; // import Scanner class
 
 // begin PhonebookTest class
-public class PhonebookTest {
+public class PhoneBookTest {
     // begin main method - initialize objects and run program
     public static void main(String[] args) {
         // create new PhonebookManager object - links/configures list nodes
-        PhonebookManager manager = new PhonebookManager();
+        PhoneBookManager manager = new PhoneBookManager();
         // create new anInterface object - provides interface with which
         // user may add to, remove from, and otherwise edit linked list
-        PhonebookInterface anInterface = new PhonebookInterface(manager);
+        PhoneBookInterface anInterface = new PhoneBookInterface(manager);
 
         // add several default nodes/contacts for testing purposes
         // comment out to begin with empty linked list/phonebook
@@ -29,7 +29,7 @@ public class PhonebookTest {
 
     // post: several default contacts have been added to phonebook
     // for testing purposes
-    public static void addTestNames(PhonebookManager phonebookManager) {
+    public static void addTestNames(PhoneBookManager phonebookManager) {
         phonebookManager.addSorted("Jones", "Dave", "123 Main St",
                 "Bellingham", "(360) 123-4567");
         phonebookManager.addSorted("Smith", "Mary", "456 Front St",
@@ -44,28 +44,28 @@ public class PhonebookTest {
 } // end PhonebookTest class
 
 // begin PhonebookNode class
-class PhonebookNode {
+class PhoneBookNode {
     // declare private fields - node data
     private String first, last, address, city, phoneNum;
-    private PhonebookNode next; // link to next node in list
+    private PhoneBookNode next; // link to next node in list
 
     // post: constructs a PhonebookNode with String null, data 0
     // and null link
-    public PhonebookNode() {
+    public PhoneBookNode() {
         // this(...) notation calls third constructor
         this(null, null, null, null, null, null);
     } // end PhonebookNode constructor
 
     // post: constructs a node with given data and null link
-    public PhonebookNode(String last, String first, String address,
-         String city, String phoneNum) {
+    public PhoneBookNode(String last, String first, String address,
+                         String city, String phoneNum) {
             // this(...) notation calls third constructor
             this(last, first, address, city, phoneNum, null);
     } // end PhonebookNode constructor
 
     // post: constructs a node with given data and given link
-    public PhonebookNode(String last, String first, String address,
-        String city, String phoneNum, PhonebookNode next) {
+    public PhoneBookNode(String last, String first, String address,
+                         String city, String phoneNum, PhoneBookNode next) {
             this.last = last; // last name String passed in
             this.first = first; // first name String passed in
             this.address = address; // address String passed in
@@ -90,7 +90,7 @@ class PhonebookNode {
     public String getPhoneNum() {
         return phoneNum;
     } // end getter methods
-    public PhonebookNode getNext() {
+    public PhoneBookNode getNext() {
         return next;
     }
 
@@ -110,18 +110,18 @@ class PhonebookNode {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     } // end setter methods
-    public void setNext(PhonebookNode next) {
+    public void setNext(PhoneBookNode next) {
         this.next = next;
     }
 } // end PhonebookNode class
 
 // begin PhonebookManager class
-class PhonebookManager {
+class PhoneBookManager {
     // first node in list
-    private PhonebookNode front; // first node in list
+    private PhoneBookNode front; // first node in list
 
     // post: constructs an empty list
-    public PhonebookManager() {
+    public PhoneBookManager() {
         front = null;
     } // end PhonebookManager constructor
 
@@ -130,17 +130,17 @@ class PhonebookManager {
                     String city, String phoneNum) {
         if (front == null) {
             // create new node at front of list
-            front = new PhonebookNode(last, first, address, city,
+            front = new PhoneBookNode(last, first, address, city,
                     phoneNum);
         } else {
             // traverse list to find first null reference, indicating
             // end of list
-            PhonebookNode current = front.getNext();
+            PhoneBookNode current = front.getNext();
             while (current.getNext() != null) {
                 current = current.getNext();
             } // end while loop
             // create new node at null reference at end of list
-            current.setNext(new PhonebookNode(last, first, address,
+            current.setNext(new PhoneBookNode(last, first, address,
                     city, phoneNum));
         } // end if/else
     } // end add
@@ -153,10 +153,10 @@ class PhonebookManager {
         // last name passed in, insert new node using String parameters at
         // front of list
         if (front == null || front.getLast().compareTo(last) > 0) {
-            front = new PhonebookNode(last, first, address,
+            front = new PhoneBookNode(last, first, address,
                     city, phoneNum, front);
         } else {
-            PhonebookNode current = front;
+            PhoneBookNode current = front;
             // iterate through list, comparing alphabetical order of
             // last name of node ahead and last name parameter
             while (current.getNext() != null
@@ -164,19 +164,19 @@ class PhonebookManager {
                 current = current.getNext(); // progress to next position
             }
             // stop one position early to add new node at final element
-            current.setNext(new PhonebookNode(last, first, address,
+            current.setNext(new PhoneBookNode(last, first, address,
                     city, phoneNum, current.getNext()));
         } // end if/else
     } // end addSorted
 
     // post: list has been sorted alphabetically
     public void sort() {
-        PhonebookNode current = front;
+        PhoneBookNode current = front;
         // if size is 0 or 1, no sorting needed
         if (size() > 1) {
             // outer loop consists of one pass over entire list
             while (current.getNext() != null) {
-                PhonebookNode index = current.getNext();
+                PhoneBookNode index = current.getNext();
                 // inner loop compares pairs of nodes
                 while (index != null) {
                     // if second node comes before first alphabetically,
@@ -196,16 +196,16 @@ class PhonebookManager {
 
     // post: two node last name fields have been compared
     // lexicographically
-    public boolean firstAlphabetically(PhonebookNode one,
-                                       PhonebookNode two) {
+    public boolean firstAlphabetically(PhoneBookNode one,
+                                       PhoneBookNode two) {
         return one.getLast().compareTo(two.getLast()) < 0;
     } // end firstAlphabetically
 
     // post: data in fields of both nodes passed in has been replaced
     // with data of other node
-    public void switchData(PhonebookNode one, PhonebookNode two) {
+    public void switchData(PhoneBookNode one, PhoneBookNode two) {
         // temporarily hold data from one node
-        PhonebookNode temp = one;
+        PhoneBookNode temp = one;
 
         // replace data in node one with data of node two
         one.setLast(two.getLast());
@@ -215,11 +215,11 @@ class PhonebookManager {
         one.setPhoneNum(two.getPhoneNum());
 
         // replace data in node two with data of node one
-        two.setLast(last);
-        two.setFirst(first);
-        two.setAddress(address);
-        two.setCity(city);
-        two.setPhoneNum(phoneNum);
+        two.setLast(temp.getLast());
+        two.setFirst(temp.getFirst());
+        two.setAddress(temp.getAddress());
+        two.setCity(temp.getCity());
+        two.setPhoneNum(temp.getPhoneNum());
     } // end switchData
 
     // post: removes entry given name
@@ -231,7 +231,7 @@ class PhonebookManager {
             // move reference to second node, disconnecting first node
             front = front.getNext();
         } else {
-            PhonebookNode current = front;
+            PhoneBookNode current = front;
             try { // scan for entry
                 while (!current.getNext().getLast().contains(last)
                         || !current.getNext().getFirst().contains(first)) {
@@ -249,7 +249,7 @@ class PhonebookManager {
         if (index == 0) {
             front = front.getNext();
         } else {
-            PhonebookNode current = nodeAt(index - 1);
+            PhoneBookNode current = nodeAt(index - 1);
             current.setNext(current.getNext().getNext());
         } // end if/else
     } // end remove
@@ -260,7 +260,7 @@ class PhonebookManager {
                 && front.getFirst().contains(first)) {
             fieldEditSwitch(field, edit, front);
         } else {
-            PhonebookNode current = front;
+            PhoneBookNode current = front;
             try { // scan for entry
                 while (!current.getNext().getLast().contains(last)
                         || !current.getNext().getFirst().contains(first)) {
@@ -274,8 +274,8 @@ class PhonebookManager {
     } // end edit
 
     // post: returns a reference to the node at the given index
-    public PhonebookNode nodeAt(int index) {
-        PhonebookNode current = front;
+    public PhoneBookNode nodeAt(int index) {
+        PhoneBookNode current = front;
         for (int i = 0; i < index; i++) {
             // traverse linked list to index value
             current = current.getNext();
@@ -284,9 +284,9 @@ class PhonebookManager {
     } // end nodeAt
 
     // post: returns a reference to first node matching a given name
-    public PhonebookNode findNode(String last, String first) {
+    public PhoneBookNode findNode(String last, String first) {
         int index = 0; // initialize index counter
-        PhonebookNode current = front;
+        PhoneBookNode current = front;
         // call String equals() method to compare node fields with
         // first and last name parameters
         while (current != null && (!current.getLast().equals(last)
@@ -300,7 +300,7 @@ class PhonebookManager {
     // post: returns the current number of elements in the list
     public int size() {
         int count = 0; // initialize index counter
-        PhonebookNode current = front;
+        PhoneBookNode current = front;
         while (current != null) {
             current = current.getNext();
             count++; // increment counter
@@ -317,7 +317,7 @@ class PhonebookManager {
             String result = "[" + front.getLast() + " " + front.getFirst()
                     + " " + front.getAddress() + " " + front.getCity() + " "
                     + front.getPhoneNum();
-            PhonebookNode current = front.getNext();
+            PhoneBookNode current = front.getNext();
             while (current != null) {
                 result += ", " + current.getLast() + " " + current.getFirst()
                         + " " + current.getAddress() + " " + current.getCity()
@@ -339,7 +339,7 @@ class PhonebookManager {
                     + "  " + front.getAddress();
             result += getSpacer(result) + " "+ front.getCity() + " "
                     + front.getPhoneNum() + "\n";
-            PhonebookNode current = front.getNext();
+            PhoneBookNode current = front.getNext();
             while (current != null) {
                 String result2 = "";
                 result2 += current.getLast() + " " + current.getFirst()
@@ -380,7 +380,7 @@ class PhonebookManager {
     // post: calls set method for given node field with switch
     // using Field enum
     public void fieldEditSwitch(Field field, String edit,
-                                PhonebookNode node) {
+                                PhoneBookNode node) {
         switch (field) {
             case LAST: // call last name setter method
                 node.setLast(edit);
@@ -413,12 +413,12 @@ class PhonebookManager {
 } // end PhonebookManager class
 
 // begin PhonebookInterface class
-class PhonebookInterface {
-    private PhonebookManager manager; // null
+class PhoneBookInterface {
+    private PhoneBookManager manager; // null
 
     // post: PhonebookManager field has been initialized with
     // object passed in to constructor
-    public PhonebookInterface(PhonebookManager manager) {
+    public PhoneBookInterface(PhoneBookManager manager) {
         this.manager = manager;
     } // end constructor
 
@@ -541,7 +541,7 @@ class PhonebookInterface {
                 manager.splitFirstAndLast(console.nextLine());
         // call PhonebookManager findNode method and
         // return node matching name if found
-        PhonebookNode foundNode =
+        PhoneBookNode foundNode =
                 manager.findNode(searchFirstAndLast[1],
                         searchFirstAndLast[0]);
 
